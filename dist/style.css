@@ -48,3 +48,6 @@
 .method-portrait img{inset:0;width:100%;height:100%;max-width:100%;object-fit:contain;object-position:center bottom;mix-blend-mode:normal}
 /* Keep both people visible in the new care photograph on narrow screens. */
 @media(max-width:760px){.care figure{height:clamp(240px,66vw,350px)}.care-photo img{object-position:54% center}}
+/* Frame the new focus photograph around the trainer and raised dumbbells. */
+.focus-photo img{object-position:45% 20%}
+@media(max-width:760px){.focus figure{height:clamp(240px,66vw,350px)}.focus-photo img{object-position:40% 20%}}
