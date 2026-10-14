@@ -1,12 +1,19 @@
-# Everylife Studio Personal
-Este é o projeto local do site. A página publicada fica em `dist/index.html`; imagens em `dist/assets`; `.openai/hosting.json` mantém o vínculo com o Site Everylife Studio Personal.
+﻿# Everylife Studio Personal
 
-## Abrir uma prévia local
-Abra `index.html` no navegador ou, com Node.js instalado, execute `node server.cjs` e visite `http://127.0.0.1:4173`.
+Projeto local da landing page, vinculado ao Site Everylife Studio Personal.
 
-## Contato
-Configure `dist/config.js` apenas quando a equipe fornecer o WhatsApp oficial (formato internacional com 55 e DDD) ou o endereço do formulário. O formulário não confirma contato se nenhum destino estiver configurado. Não coloque segredos nesta configuração pública.
+- Página pronta para hospedagem: dist/index.html.
+- Estilos: dist/style.css.
+- Menu e destinos dos botões: dist/script.js e dist/config.js.
+- Abra index.html diretamente ou execute node server.cjs e acesse http://127.0.0.1:4173.
 
-## Imagens
-As imagens em `dist/assets` vieram dos arquivos fornecidos na pasta `Arquivos-Diversos`. Os materiais originais e vídeos permaneceram preservados nessa pasta.
+## Design e conteúdo
+A composição segue a imagem “Everylife_ cuidado, autonomia e bem-estar.png” e o prompt de referência enviados em 14/10/2026. A página não apresenta preços, planos nem formulário.
+Os textos institucionais e as periodicidades das avaliações se baseiam nos dois PDFs da pasta Arquivos-Diversos. As fotografias são dos materiais oficiais fornecidos. O retrato da seção do método é a imagem de abertura do onboarding, enquadrada com CSS para mostrar somente a área do retrato.
+Os originais permanecem preservados em Arquivos-Diversos, fora do pacote publicado.
 
+## Atendimento
+Sem WhatsApp configurado, os botões de visita levam aos contatos do rodapé, com o Instagram oficial. Quando o número oficial for fornecido, preencha whatsappNumber em dist/config.js com 55 + DDD + número. Nenhum dado pessoal é coletado por formulário.
+
+## Publicação
+.openai/hosting.json mantém a identidade do Site e declara dist como a pasta publicada. Preserve o project_id nas futuras revisões.

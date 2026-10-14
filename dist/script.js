@@ -1,14 +1,10 @@
-﻿const toggle=document.querySelector('.menu-toggle');
-const nav=document.querySelector('#nav-principal');
-function closeNav(){toggle.setAttribute('aria-expanded','false');nav.classList.remove('open');toggle.setAttribute('aria-label','Abrir menu')}
-toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open);toggle.setAttribute('aria-label',open?'Fechar menu':'Abrir menu')});
-nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeNav));
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){closeNav();toggle.focus()}});
-document.querySelectorAll('.faq-question').forEach(button=>button.addEventListener('click',()=>{const open=button.getAttribute('aria-expanded')==='true';button.setAttribute('aria-expanded',String(!open));document.getElementById(button.getAttribute('aria-controls')).hidden=open}));
-const form=document.querySelector('#contact-form'),phone=document.querySelector('#phone'),status=document.querySelector('#form-status');
-phone.addEventListener('input',()=>{const n=phone.value.replace(/\D/g,'').slice(0,11);phone.value=n.length>10?'('+n.slice(0,2)+') '+n.slice(2,7)+'-'+n.slice(7):n.length>6?'('+n.slice(0,2)+') '+n.slice(2,6)+'-'+n.slice(6):n.length>2?'('+n.slice(0,2)+') '+n.slice(2):n;phone.setCustomValidity('')});
-form.addEventListener('submit',async e=>{e.preventDefault();const name=form.elements.name.value.trim(),digits=phone.value.replace(/\D/g,'');form.elements.name.setCustomValidity(name.length<2?'Informe seu nome.':'');phone.setCustomValidity(digits.length<10?'Informe um WhatsApp válido com DDD.':'');if(!form.reportValidity())return;const cfg=window.EVERYLIFE_CONFIG||{},data={name,phone:digits,objective:form.elements.objective.value.trim()};status.className='';status.textContent='';
-if(cfg.whatsappNumber&&/^55\d{10,11}$/.test(cfg.whatsappNumber)){const message='Olá! Quero conhecer a Everylife. Meu nome é '+name+'. Meu WhatsApp: '+phone.value+'. O que busco: '+(data.objective||'Agendar uma visita')+'.';window.open('https://wa.me/'+cfg.whatsappNumber+'?text='+encodeURIComponent(message),'_blank','noopener,noreferrer');status.textContent='Continue no WhatsApp e envie a mensagem para solicitar sua visita.';return}
-if(cfg.formEndpoint){const button=form.querySelector('button');button.disabled=true;button.textContent='Enviando…';form.setAttribute('aria-busy','true');try{const r=await fetch(cfg.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data),signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('send');status.textContent='Solicitação recebida. A equipe entrará em contato para combinar sua visita.';status.classList.add('success');form.reset()}catch{status.textContent='Não foi possível enviar. Seus dados continuam nos campos. Tente novamente ou fale com a equipe pelo Instagram.';document.querySelector('#contact-alternative').hidden=false}finally{button.disabled=false;button.innerHTML='Quero agendar minha visita <span aria-hidden="true">→</span>';form.removeAttribute('aria-busy')}return}
-status.textContent='O formulário ainda não está conectado ao canal oficial de atendimento. Seus dados não foram enviados. Fale com a equipe pelo Instagram.';document.querySelector('#contact-alternative').hidden=false});
-form.elements.name.addEventListener('input',()=>form.elements.name.setCustomValidity(''));
+﻿const menuButton=document.querySelector('.menu-toggle');
+const menu=document.querySelector('#nav-principal');
+function closeMenu(){menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Abrir menu');menu.classList.remove('open')}
+menuButton.addEventListener('click',()=>{const open=menuButton.getAttribute('aria-expanded')!=='true';menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');menu.classList.toggle('open',open)});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menuButton.getAttribute('aria-expanded')==='true'){closeMenu();menuButton.focus()}});
+document.addEventListener('click',e=>{if(!e.target.closest('.site-header'))closeMenu()});
+const settings=window.EVERYLIFE_CONFIG||{};
+const whatsapp=String(settings.whatsappNumber||'').replace(/\D/g,'');
+if(/^55\d{10,11}$/.test(whatsapp)){document.querySelectorAll('.visit-link').forEach(a=>{a.href='https://wa.me/'+whatsapp+'?text='+encodeURIComponent('Olá! Quero conhecer a Everylife e agendar uma visita.');a.target='_blank';a.rel='noopener noreferrer'})}
