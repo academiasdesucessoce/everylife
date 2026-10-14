@@ -51,15 +51,3 @@
 /* Frame the new focus photograph around the trainer and raised dumbbells. */
 .focus-photo img{object-position:45% 20%}
 @media(max-width:760px){.focus figure{height:clamp(240px,66vw,350px)}.focus-photo img{object-position:40% 20%}}
-/* Reversible trial: dedicated breathing space and wave ribbons between sections. */
-.section-divider{position:relative;z-index:5;height:64px;background:var(--cream);pointer-events:none}
-.section-divider svg{position:absolute;left:0;top:-16px;display:block;width:100%;height:calc(100% + 32px);overflow:visible}
-.divider-ribbon{fill:var(--cream)}
-.divider-line{fill:none;stroke:var(--sage);stroke-width:1.6;vector-effect:non-scaling-stroke;opacity:.8}
-.care+.section-divider .divider-line,.studio+.section-divider .divider-line{stroke:var(--coral);opacity:.65}
-.focus .coral-wave,.evaluations .sage-wave{display:none}
-@media(max-width:760px){
-.section-divider{height:38px}
-.section-divider svg{top:-10px;height:calc(100% + 20px)}
-.divider-line{stroke-width:1.25}
-}
