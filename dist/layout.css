@@ -148,3 +148,14 @@ h2,.method-copy h2,.care .split-copy h2,.focus .split-copy h2,.evaluations-copy 
 .care-benefits{gap:12px}
 .care-benefits>span{font-size:12px}
 }
+/* More prominent, centered method portrait and a shorter decorative curve. */
+@media(min-width:1024px){
+.method-intro{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:32px}
+.method-wave{left:calc(46.512% + 18px);right:auto;top:36%;width:24%;height:74px}
+}
+@media(min-width:761px) and (max-width:1023px){
+.method-wave{right:8%;top:36%;width:24%;height:74px}
+}
+@media(max-width:760px){
+.method-wave{right:0;top:auto;bottom:18%;width:60%;height:64px}
+}
