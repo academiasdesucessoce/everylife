@@ -1,3 +1,4 @@
 /Arquivos-Diversos/
 /.sites-checkout/
 *.mp4
+!dist/assets/*.mp4
