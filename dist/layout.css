@@ -159,3 +159,8 @@ h2,.method-copy h2,.care .split-copy h2,.focus .split-copy h2,.evaluations-copy 
 @media(max-width:760px){
 .method-wave{right:0;top:auto;bottom:18%;width:60%;height:64px}
 }
+/* Blend the lower edge of the method portrait into the cream background. */
+.method-portrait img{
+-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.92) 82%,rgba(0,0,0,.48) 92%,transparent 100%);
+mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.92) 82%,rgba(0,0,0,.48) 92%,transparent 100%);
+}
