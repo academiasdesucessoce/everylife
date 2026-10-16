@@ -25,12 +25,17 @@ document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>reve
 document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>el.classList.add('revealed'));
 }
 
-// Automatic Photo Carousel for Team Section
+// Automatic & Arrow-Driven Photo Carousel for Team Section
 (function initTeamCarousel(){
-const track=document.querySelector('.team-carousel-track');
+const carousel=document.querySelector('.team-carousel');
+if(!carousel)return;
+const track=carousel.querySelector('.team-carousel-track');
 if(!track)return;
 const slides=Array.from(track.children);
 if(slides.length<=1)return;
+
+const prevBtn=carousel.querySelector('.team-prev');
+const nextBtn=carousel.querySelector('.team-next');
 
 let currentIndex=0;
 
@@ -42,27 +47,54 @@ const gap=parseFloat(style.gap)||16;
 return firstSlide.getBoundingClientRect().width+gap;
 }
 
+function getMaxIndex(){
+const isMobile=window.innerWidth<=760;
+return isMobile ? (slides.length - 1) : (slides.length - 2);
+}
+
 function updateCarousel(){
 const step=getSlideStep();
 track.style.transform=`translateX(-${currentIndex*step}px)`;
 }
 
 function nextSlide(){
-const isMobile=window.innerWidth<=760;
-const maxIndex=isMobile?(slides.length-1):(slides.length-2);
-currentIndex=(currentIndex>=maxIndex)?0:currentIndex+1;
+const max=getMaxIndex();
+currentIndex=(currentIndex>=max)?0:currentIndex+1;
 updateCarousel();
 }
 
-let timer=setInterval(nextSlide,3500);
+function prevSlide(){
+const max=getMaxIndex();
+currentIndex=(currentIndex<=0)?max:currentIndex-1;
+updateCarousel();
+}
+
+let timer=setInterval(nextSlide,3800);
+
+function resetTimer(){
+clearInterval(timer);
+timer=setInterval(nextSlide,3800);
+}
+
+if(nextBtn){
+nextBtn.addEventListener('click',()=>{
+nextSlide();
+resetTimer();
+});
+}
+
+if(prevBtn){
+prevBtn.addEventListener('click',()=>{
+prevSlide();
+resetTimer();
+});
+}
 
 window.addEventListener('resize',updateCarousel,{passive:true});
 
 // Pause on hover
-const carousel=track.closest('.team-carousel');
-if(carousel){
 carousel.addEventListener('mouseenter',()=>{clearInterval(timer)});
-carousel.addEventListener('mouseleave',()=>{timer=setInterval(nextSlide,3500)});
-}
+carousel.addEventListener('mouseleave',()=>{resetTimer()});
 })();
+
 
