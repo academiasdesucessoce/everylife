@@ -13,7 +13,7 @@ h2,.method-copy h2,.care .split-copy h2,.focus .split-copy h2,.evaluations-copy 
 .method-copy>p{margin-top:24px}
 .method-copy .desktop-break{display:none}
 .method-copy .text-link{font-size:19px}
-.method-portrait{position:relative;inset:auto;width:115%;max-width:none;height:auto;aspect-ratio:1166/937;align-self:center;margin-top:-28px;margin-bottom:-36px;margin-right:-8%}
+.method-portrait{position:relative;inset:auto;width:115%;max-width:none;height:auto;aspect-ratio:1166/937;align-self:center;margin-top:-28px;margin-bottom:-36px;transform:translateX(-18%)}
 .method-portrait img{position:static;width:100%;height:auto;object-fit:contain}
 .method-timeline{padding-top:20px;padding-bottom:0}
 .method-timeline h3{font-size:30px;margin-bottom:24px}
@@ -126,7 +126,7 @@ border-radius:16px;
 .method-copy h2{font-size:clamp(28px,7.2vw,40px)}
 .method-copy>p{font-size:17px;max-width:none;margin-top:18px}
 .method-copy .text-link{font-size:16px;margin-top:18px}
-.method-portrait{width:min(100%,430px);height:auto;aspect-ratio:auto;justify-self:center;inset:auto}
+.method-portrait{width:min(100%,430px);height:auto;aspect-ratio:auto;justify-self:center;inset:auto;transform:none}
 .method-portrait img{position:static;width:100%;height:auto}
 .method-wave{width:90%;right:0;top:50%;height:100px;opacity:.2}
 .method-timeline{padding-top:24px;padding-bottom:0}
