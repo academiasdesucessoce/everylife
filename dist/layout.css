@@ -198,18 +198,18 @@ background:linear-gradient(180deg,rgba(0,27,24,0.92) 0%,rgba(0,27,24,0.82) 48%,r
 }
 }
 
-/* White Sticky Header & Harmonized Menu Styling */
+/* Soft Cream Sticky Header & Teal Menu Styling */
 html{scroll-padding-top:80px}
 .site-header{
 position:sticky;
 top:0;
 z-index:100;
-background:rgba(255,255,255,0.96);
+background:rgba(250,247,240,0.96);
 backdrop-filter:blur(8px);
 -webkit-backdrop-filter:blur(8px);
 color:var(--green);
 box-shadow:0 2px 14px rgba(0,35,32,0.06);
-border-bottom:1px solid rgba(0,79,73,0.08);
+border-bottom:1px solid rgba(0,79,73,0.1);
 transition:background .2s ease,box-shadow .2s ease;
 }
 .site-header .header-inner{
@@ -220,7 +220,7 @@ width:162px; /* 232px reduzido em 30% */
 transition:width .2s ease;
 }
 .site-header nav a{
-color:var(--green);
+color:#004f49; /* verde-petróleo da Everylife */
 font-weight:500;
 transition:color .2s ease;
 }
@@ -248,16 +248,16 @@ width:125px; /* 171px reduzido em aprox. 30% */
 border-color:rgba(0,79,73,0.25);
 }
 .menu-toggle span{
-background:var(--green);
+background:#004f49;
 }
 .site-header nav{
-background:#ffffff;
+background:#FAF7F0;
 top:60px;
-border-top:1px solid rgba(0,79,73,0.08);
+border-top:1px solid rgba(0,79,73,0.1);
 box-shadow:0 12px 24px rgba(0,35,32,0.12);
 }
 .site-header nav a{
-color:var(--green);
-border-bottom:1px solid rgba(0,79,73,0.05);
+color:#004f49;
+border-bottom:1px solid rgba(0,79,73,0.06);
 }
 }
