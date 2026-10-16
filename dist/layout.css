@@ -55,8 +55,33 @@ h2,.method-copy h2,.care .split-copy h2,.focus .split-copy h2,.evaluations-copy 
 .team-copy{padding:0}
 .team h2{font-size:36px}
 .team p{font-size:19px;line-height:1.4}
-.team-photos{gap:16px;overflow:visible;height:auto}
-.team-photos img,.team-photos img:last-child{position:static;width:100%;height:auto;aspect-ratio:1.2;object-fit:cover;object-position:center 30%;border-radius:16px;min-width:0}
+.team-carousel{
+position:relative;
+width:100%;
+overflow:hidden;
+border-radius:16px;
+}
+.team-carousel-track{
+display:flex;
+gap:16px;
+transition:transform 0.65s cubic-bezier(0.25,1,0.5,1);
+will-change:transform;
+}
+.team-slide{
+flex:0 0 calc(50% - 8px);
+min-width:0;
+border-radius:16px;
+overflow:hidden;
+}
+.team-slide img{
+display:block;
+width:100%;
+height:auto;
+aspect-ratio:1.2;
+object-fit:cover;
+object-position:center 30%;
+border-radius:16px;
+}
 .benefits{background:transparent;margin-top:32px}
 .benefits-inner{min-height:86px;padding-block:18px}
 .benefits-inner>span{font-size:16px}
@@ -131,8 +156,9 @@ h2,.method-copy h2,.care .split-copy h2,.focus .split-copy h2,.evaluations-copy 
 .team{gap:24px}
 .team h2{font-size:31px}
 .team p{font-size:17px}
-.team-photos{height:auto;gap:12px}
-.team-photos img,.team-photos img:last-child{aspect-ratio:.85;border-radius:12px}
+.team-carousel-track{gap:12px}
+.team-slide{flex:0 0 calc(100% - 32px);aspect-ratio:1.15}
+.team-slide img{aspect-ratio:1.15;border-radius:14px}
 .benefits{margin-top:24px}
 .benefits-inner{padding-block:16px;gap:20px 10px}
 .benefits-inner>span{font-size:13px}

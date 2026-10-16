@@ -24,3 +24,45 @@ document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>reve
 }else{
 document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>el.classList.add('revealed'));
 }
+
+// Automatic Photo Carousel for Team Section
+(function initTeamCarousel(){
+const track=document.querySelector('.team-carousel-track');
+if(!track)return;
+const slides=Array.from(track.children);
+if(slides.length<=1)return;
+
+let currentIndex=0;
+
+function getSlideStep(){
+const firstSlide=slides[0];
+if(!firstSlide)return 0;
+const style=window.getComputedStyle(track);
+const gap=parseFloat(style.gap)||16;
+return firstSlide.getBoundingClientRect().width+gap;
+}
+
+function updateCarousel(){
+const step=getSlideStep();
+track.style.transform=`translateX(-${currentIndex*step}px)`;
+}
+
+function nextSlide(){
+const isMobile=window.innerWidth<=760;
+const maxIndex=isMobile?(slides.length-1):(slides.length-2);
+currentIndex=(currentIndex>=maxIndex)?0:currentIndex+1;
+updateCarousel();
+}
+
+let timer=setInterval(nextSlide,3500);
+
+window.addEventListener('resize',updateCarousel,{passive:true});
+
+// Pause on hover
+const carousel=track.closest('.team-carousel');
+if(carousel){
+carousel.addEventListener('mouseenter',()=>{clearInterval(timer)});
+carousel.addEventListener('mouseleave',()=>{timer=setInterval(nextSlide,3500)});
+}
+})();
+
