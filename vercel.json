@@ -1,7 +1,20 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": null,
+  "outputDirectory": "dist",
   "cleanUrls": true,
-  "rewrites": [
-    { "source": "/", "destination": "/dist/index.html" },
-    { "source": "/(.*)", "destination": "/dist/$1" }
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/dist",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/dist/:path*",
+      "destination": "/:path*",
+      "permanent": true
+    }
   ]
 }

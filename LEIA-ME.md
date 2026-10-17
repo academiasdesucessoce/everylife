@@ -1,11 +1,11 @@
-﻿# Everylife Studio Personal
+# Everylife Studio Personal
 
 Projeto local da landing page, vinculado ao Site Everylife Studio Personal.
 
 - Página pronta para hospedagem: dist/index.html.
 - Estilos: dist/style.css.
 - Menu e destinos dos botões: dist/script.js e dist/config.js.
-- Abra index.html diretamente ou execute node server.cjs e acesse http://127.0.0.1:4173.
+- Abra dist/index.html diretamente ou execute node server.cjs e acesse http://127.0.0.1:4173.
 
 ## Design e conteúdo
 A composição segue a imagem “Everylife_ cuidado, autonomia e bem-estar.png” e o prompt de referência enviados em 14/10/2026. A página não apresenta preços, planos nem formulário.
