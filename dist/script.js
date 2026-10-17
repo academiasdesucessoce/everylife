@@ -36,14 +36,15 @@ siteHeader.classList.toggle('scrolled',window.scrollY>20);
 
 // Intersection Observer for Smooth Reveal Animations on Scroll
 if('IntersectionObserver' in window){
-const revealObserver=new IntersectionObserver((entries,obs)=>{
+const revealObserver=new IntersectionObserver((entries)=>{
 entries.forEach(entry=>{
 if(entry.isIntersecting){
 entry.target.classList.add('revealed');
-obs.unobserve(entry.target);
+}else if(entry.boundingClientRect.top>0){
+entry.target.classList.remove('revealed');
 }
 });
-},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+},{threshold:0.15,rootMargin:'0px 0px -50px 0px'});
 
 document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>revealObserver.observe(el));
 }else{
