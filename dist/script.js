@@ -9,6 +9,31 @@ const settings=window.EVERYLIFE_CONFIG||{};
 const whatsapp=String(settings.whatsappNumber||'').replace(/\D/g,'');
 if(/^55\d{10,11}$/.test(whatsapp)){document.querySelectorAll('.visit-link').forEach(a=>{a.href='https://wa.me/'+whatsapp+'?text='+encodeURIComponent('Olá! Quero conhecer a Everylife e agendar uma visita.');a.target='_blank';a.rel='noopener noreferrer'})}
 
+// Dynamic Staggered Children Setup & Scroll Reveal
+const staggerGroups=[
+'.pillar-grid .pillar',
+'.method-timeline li',
+'.care-benefits > span',
+'.focus-benefits > div',
+'.evaluations ul li',
+'.benefits-inner > span',
+'.faq-list details'
+];
+staggerGroups.forEach(selector=>{
+document.querySelectorAll(selector).forEach((el,idx)=>{
+el.classList.add('stagger-item');
+el.style.setProperty('--stagger',idx);
+});
+});
+
+// Header Scroll Elevation Effect
+const siteHeader=document.querySelector('.site-header');
+if(siteHeader){
+window.addEventListener('scroll',()=>{
+siteHeader.classList.toggle('scrolled',window.scrollY>20);
+},{passive:true});
+}
+
 // Intersection Observer for Smooth Reveal Animations on Scroll
 if('IntersectionObserver' in window){
 const revealObserver=new IntersectionObserver((entries,obs)=>{
