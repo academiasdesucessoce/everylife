@@ -130,6 +130,8 @@ right:10px;
 .site-footer{padding-block:40px}
 .footer-inner{grid-template-columns:240px minmax(0,1fr) auto;gap:24px}
 .footer-inner>p{font-size:16px}
+.footer-contact a,.footer-contact p{align-items:flex-start}
+.footer-contact .icon{flex-shrink:0;margin-top:2px}
 @media(min-width:761px) and (max-width:1100px){
 .container,.care,.focus,.studio,.team{width:calc(100% - 48px)}
 .split,.evaluations-inner{gap:32px}

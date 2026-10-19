@@ -6,8 +6,15 @@ menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menuButton.getAttribute('aria-expanded')==='true'){closeMenu();menuButton.focus()}});
 document.addEventListener('click',e=>{if(!e.target.closest('.site-header'))closeMenu()});
 const settings=window.EVERYLIFE_CONFIG||{};
-const whatsapp=String(settings.whatsappNumber||'').replace(/\D/g,'');
-if(/^55\d{10,11}$/.test(whatsapp)){document.querySelectorAll('.visit-link').forEach(a=>{a.href='https://wa.me/'+whatsapp+'?text='+encodeURIComponent('Olá! Quero conhecer a Everylife e agendar uma visita.');a.target='_blank';a.rel='noopener noreferrer'})}
+const whatsapp=String(settings.whatsappNumber||'5585997237204').replace(/\D/g,'');
+const whatsappMsg=settings.whatsappMessage||'Olá! Vim pelo site e gostaria de agendar uma aula experimental.';
+if(/^55\d{10,11}$/.test(whatsapp)){
+  document.querySelectorAll('.visit-link').forEach(a=>{
+    a.href='https://wa.me/'+whatsapp+'?text='+encodeURIComponent(whatsappMsg);
+    a.target='_blank';
+    a.rel='noopener noreferrer';
+  });
+}
 
 // Dynamic Staggered Children Setup & Scroll Reveal
 const staggerGroups=[
