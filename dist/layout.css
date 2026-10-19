@@ -158,6 +158,12 @@ right:10px;
 :root{--section-gap:48px}
 .container,.care,.focus,.studio,.team{width:calc(100% - 40px)}
 .header-inner{gap:12px}
+.hero-inner{padding-block:52px 44px;min-height:660px}
+.hero h1{line-height:1.15}
+.hero-copy>p:not(.eyebrow):not(.location){margin-top:20px;line-height:1.45;max-width:360px}
+.hero .button{margin-top:28px;padding:13px 24px}
+.hero .location{margin-top:22px;line-height:1.4}
+.hero-shade{background:linear-gradient(180deg,#0b201d 0%,#0b201df2 38%,#0b201d7a 56%,transparent 76%)}
 .pillar-grid{padding-block:20px;gap:18px 0}
 .pillar{font-size:13px;gap:10px}
 .icon-ring{width:44px;height:44px}
