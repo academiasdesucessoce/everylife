@@ -1,0 +1,534 @@
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('assets/outfit-latin.woff2') format('woff2');
+}
+
+:root {
+  --teal: #004F49;
+  --deep: #003B37;
+  --cream: #FBF5EC;
+  --cream-badge: #EFE9DF;
+  --coral: #D7694E;
+  --coral-hover: #C95E43;
+  --light: #FFF9F0;
+  --muted: #3F5E59;
+  --border: rgba(0, 79, 73, 0.44);
+  --font: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background-color: #002F2B;
+  background-image: radial-gradient(circle at 50% 0%, #004943 0%, #002825 100%);
+  color: var(--deep);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.bio-shell {
+  width: 100%;
+  max-width: 560px;
+  min-width: 0;
+  min-height: 100dvh;
+  margin-inline: auto;
+  background-color: var(--cream);
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.36);
+}
+
+/* A. Fotografia de abertura */
+.bio-hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 585 / 419;
+  min-height: 310px;
+  max-height: 430px;
+  overflow: hidden;
+  background-color: var(--deep);
+  isolation: isolate;
+  flex-shrink: 0;
+}
+
+.bio-hero-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 58% 16%;
+  display: block;
+  z-index: 0;
+}
+
+.bio-hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 68% 36% at 22% 12%, rgba(20, 12, 8, 0.42) 0%, transparent 72%),
+    linear-gradient(
+      180deg,
+      rgba(0, 36, 33, 0.08) 0%,
+      rgba(0, 45, 41, 0.02) 42%,
+      rgba(0, 59, 55, 0.38) 60%,
+      rgba(0, 68, 63, 0.88) 80%,
+      #003B37 100%
+    );
+  pointer-events: none;
+}
+
+.bio-logo {
+  position: absolute;
+  top: 22px;
+  left: 24px;
+  z-index: 2;
+  width: clamp(138px, 34vw, 184px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.28));
+}
+
+.bio-hero-copy {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 20px;
+  z-index: 2;
+}
+
+.bio-hero-copy h1 {
+  margin: 0;
+  font-size: clamp(27px, 7.3vw, 37px);
+  font-weight: 600;
+  line-height: 1.07;
+  letter-spacing: -0.02em;
+  color: var(--light);
+  text-shadow: 0 2px 14px rgba(0, 26, 24, 0.45);
+}
+
+.bio-hero-copy h1 em {
+  display: block;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--coral);
+}
+
+.bio-hero-copy p {
+  margin: 7px 0 0;
+  font-size: clamp(13.5px, 3.7vw, 17px);
+  font-weight: 300;
+  line-height: 1.3;
+  color: rgba(255, 249, 240, 0.94);
+  letter-spacing: 0.005em;
+}
+
+/* B. Introdução e área de links */
+.bio-main {
+  flex: 1;
+  background-color: var(--cream);
+  padding: 24px 22px 26px;
+}
+
+.bio-intro {
+  margin-bottom: 16px;
+}
+
+.bio-eyebrow {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.bio-title {
+  margin: 4px 0 0;
+  font-size: clamp(23.5px, 6.4vw, 33px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+  color: var(--deep);
+}
+
+.bio-title .dot {
+  color: var(--coral);
+}
+
+/* Lista de botões principais */
+.bio-links {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.bio-card {
+  display: grid;
+  grid-template-columns: 48px 1px minmax(0, 1fr) 22px;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  text-decoration: none;
+  border-radius: 15px;
+  padding: 15px 18px;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bio-card:focus-visible,
+.bio-social-btn:focus-visible {
+  outline: 2.5px solid var(--coral);
+  outline-offset: 3px;
+}
+
+/* C. Botão principal — WhatsApp */
+.bio-card-primary {
+  background: linear-gradient(135deg, #DC7055 0%, #D36348 100%);
+  color: var(--light);
+  border: 1px solid rgba(215, 105, 78, 0.2);
+  padding-block: 17px;
+  min-height: 86px;
+}
+
+.bio-card-primary:hover {
+  background: linear-gradient(135deg, #D5674C 0%, #C8583D 100%);
+  transform: translateY(-1px);
+}
+
+.bio-card-primary .bio-card-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--light);
+  justify-self: center;
+}
+
+.bio-card-primary .bio-card-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.bio-card-primary .bio-card-divider {
+  width: 1px;
+  height: 40px;
+  background-color: rgba(255, 249, 240, 0.36);
+}
+
+.bio-card-primary .bio-card-title {
+  color: var(--light);
+  font-size: clamp(18px, 4.7vw, 21.5px);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+
+.bio-card-primary .bio-card-sub {
+  color: rgba(255, 249, 240, 0.92);
+  font-size: clamp(13.5px, 3.6vw, 15.5px);
+  font-weight: 300;
+  margin-top: 3px;
+}
+
+.bio-card-primary .bio-card-arrow {
+  color: var(--light);
+}
+
+/* D & E. Botões secundários — Site e Localização */
+.bio-card-outline {
+  background-color: var(--cream);
+  border: 1px solid var(--border);
+  color: var(--deep);
+  min-height: 82px;
+}
+
+.bio-card-outline:hover {
+  background-color: #F5EFE4;
+  border-color: var(--teal);
+  transform: translateY(-1px);
+}
+
+.bio-card-outline .bio-card-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: var(--cream-badge);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--teal);
+  justify-self: center;
+}
+
+.bio-card-outline .bio-card-icon svg {
+  width: 25px;
+  height: 25px;
+}
+
+.bio-card-outline .bio-card-divider {
+  width: 1px;
+  height: 38px;
+  background-color: rgba(0, 79, 73, 0.24);
+}
+
+.bio-card-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  min-width: 0;
+}
+
+.bio-card-title {
+  display: block;
+  font-size: clamp(17.5px, 4.5vw, 20.5px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--deep);
+  letter-spacing: -0.01em;
+}
+
+.bio-card-sub {
+  display: block;
+  font-size: clamp(13px, 3.4vw, 15px);
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.bio-card-sub .bullet {
+  color: var(--coral);
+  margin-inline: 2px;
+  font-weight: 500;
+}
+
+.bio-card-arrow {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--deep);
+  justify-self: end;
+}
+
+.bio-card-arrow svg {
+  width: 19px;
+  height: 19px;
+}
+
+/* F. Redes sociais */
+.bio-social-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 22px 0 14px;
+}
+
+.bio-social-header::before,
+.bio-social-header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: rgba(0, 79, 73, 0.28);
+}
+
+.bio-social-header span {
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.bio-social-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.bio-social-btn {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) 16px;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 16px;
+  min-height: 52px;
+  text-decoration: none;
+  color: var(--deep);
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bio-social-btn:hover {
+  background-color: #F5EFE4;
+  border-color: var(--teal);
+  transform: translateY(-1px);
+}
+
+.bio-social-icon {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--deep);
+}
+
+.bio-social-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.bio-social-label {
+  font-size: clamp(14.5px, 3.8vw, 16px);
+  font-weight: 500;
+  color: var(--deep);
+  text-align: center;
+}
+
+.bio-social-arrow {
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--deep);
+}
+
+.bio-social-arrow svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* G. Rodapé */
+.bio-footer {
+  position: relative;
+  background: linear-gradient(180deg, #004943 0%, #003834 100%);
+  color: var(--light);
+  padding: 18px 22px 20px;
+  text-align: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.bio-footer-waves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 46px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.bio-footer-icon {
+  width: 22px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 7px;
+}
+
+.bio-footer-quote {
+  margin: 0;
+  font-size: clamp(13.5px, 3.6vw, 15px);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--light);
+  letter-spacing: 0.01em;
+}
+
+.bio-footer-divider {
+  width: min(280px, 76%);
+  height: 1px;
+  background-color: rgba(255, 249, 240, 0.24);
+  margin: 9px auto 8px;
+}
+
+.bio-footer-meta {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 300;
+  color: rgba(255, 249, 240, 0.8);
+  letter-spacing: 0.02em;
+}
+
+.bio-footer-meta .dot {
+  margin-inline: 4px;
+  opacity: 0.75;
+}
+
+/* Ajustes para telas pequenas (360px) */
+@media (max-width: 374px) {
+  .bio-hero-copy {
+    left: 18px;
+    right: 18px;
+    bottom: 16px;
+  }
+  .bio-logo {
+    top: 18px;
+    left: 18px;
+  }
+  .bio-main {
+    padding: 20px 18px 22px;
+  }
+  .bio-card {
+    grid-template-columns: 42px 1px minmax(0, 1fr) 18px;
+    gap: 12px;
+    padding: 13px 14px;
+  }
+  .bio-card-outline .bio-card-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .bio-social-btn {
+    padding: 11px 12px;
+    gap: 6px;
+  }
+}
+
+/* Ajustes para desktop */
+@media (min-width: 600px) {
+  body {
+    padding-block: 24px;
+  }
+  .bio-shell {
+    min-height: auto;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

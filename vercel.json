@@ -16,5 +16,15 @@
       "destination": "/:path*",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/links",
+      "destination": "/links.html"
+    },
+    {
+      "source": "/bio",
+      "destination": "/links.html"
+    }
   ]
 }
