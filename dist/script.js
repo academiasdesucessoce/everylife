@@ -231,7 +231,6 @@ const modal=document.querySelector('#video-modal');
 if(!modal)return;
 
 const player=modal.querySelector('.video-modal-player');
-const iframe=modal.querySelector('.video-modal-iframe');
 const placeholderMsg=modal.querySelector('.video-modal-placeholder-msg');
 const nameEl=modal.querySelector('.video-modal-name');
 const roleEl=modal.querySelector('.video-modal-role');
@@ -247,7 +246,6 @@ const role=trigger.getAttribute('data-student-role')||'';
 const igUrl=trigger.getAttribute('data-instagram-url')||'';
 const videoSrc=trigger.getAttribute('data-video-src')||'';
 const poster=trigger.getAttribute('data-video-poster')||'';
-const reelCode=trigger.getAttribute('data-reel-code')||'';
 
 if(nameEl)nameEl.textContent=name;
 if(roleEl)roleEl.textContent=role;
@@ -262,40 +260,26 @@ igLink.style.display='inline-flex';
 }
 }
 
-if(isPlaceholder||(!videoSrc&&!reelCode)){
+if(isPlaceholder||!videoSrc){
 if(player){
 player.pause();
 player.removeAttribute('src');
 player.style.display='none';
 }
-if(iframe){
-iframe.src='';
-iframe.style.display='none';
-}
 if(placeholderMsg)placeholderMsg.style.display='flex';
-}else if(videoSrc){
+}else{
 if(placeholderMsg)placeholderMsg.style.display='none';
-if(iframe){
-iframe.src='';
-iframe.style.display='none';
-}
 if(player){
 player.style.display='block';
 player.poster=poster;
 player.src=videoSrc;
 player.load();
-player.play().catch(()=>{});
+const playPromise=player.play();
+if(playPromise!==undefined){
+playPromise.catch(()=>{
+player.controls=true;
+});
 }
-}else if(reelCode){
-if(placeholderMsg)placeholderMsg.style.display='none';
-if(player){
-player.pause();
-player.removeAttribute('src');
-player.style.display='none';
-}
-if(iframe){
-iframe.style.display='block';
-iframe.src=`https://www.instagram.com/reel/${reelCode}/embed/`;
 }
 }
 
@@ -313,10 +297,6 @@ if(player){
 player.pause();
 player.removeAttribute('src');
 player.load();
-}
-if(iframe){
-iframe.src='';
-iframe.style.display='none';
 }
 if(lastFocusedTrigger){
 lastFocusedTrigger.focus();
