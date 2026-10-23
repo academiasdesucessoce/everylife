@@ -1051,12 +1051,14 @@ justify-content:center;
 position:relative;
 }
 
-.video-modal-player{
+.video-modal-player,
+.video-modal-iframe{
 width:100%;
 height:100%;
 object-fit:contain;
 display:block;
 background:#000;
+border:none;
 }
 
 .video-modal-placeholder-msg{
