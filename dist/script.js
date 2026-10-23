@@ -24,6 +24,7 @@ const staggerGroups=[
 '.focus-benefits > div',
 '.evaluations ul li',
 '.benefits-inner > span',
+'.testimonials-track .testimonial-card',
 '.faq-list details'
 ];
 staggerGroups.forEach(selector=>{
@@ -129,5 +130,203 @@ window.addEventListener('resize',updateCarousel,{passive:true});
 carousel.addEventListener('mouseenter',()=>{clearInterval(timer)});
 carousel.addEventListener('mouseleave',()=>{resetTimer()});
 })();
+
+// Testimonials Video Carousel & Modal Controller
+(function initTestimonials(){
+const section=document.querySelector('.testimonials');
+if(!section)return;
+
+const track=section.querySelector('.testimonials-track');
+const cards=Array.from(section.querySelectorAll('.testimonial-card'));
+const prevBtn=section.querySelector('.testimonials-prev');
+const nextBtn=section.querySelector('.testimonials-next');
+const dotsContainer=section.querySelector('.testimonials-dots');
+const nav=section.querySelector('.testimonials-nav');
+
+if(!track||cards.length===0)return;
+
+function setupDots(){
+if(!dotsContainer)return;
+dotsContainer.innerHTML='';
+cards.forEach((_,idx)=>{
+const dot=document.createElement('button');
+dot.type='button';
+dot.className='testimonials-dot'+(idx===0?' active':'');
+dot.setAttribute('role','tab');
+dot.setAttribute('aria-label',`Ir para depoimento ${idx+1}`);
+dot.setAttribute('aria-selected',idx===0?'true':'false');
+dot.addEventListener('click',()=>{scrollToCard(idx);});
+dotsContainer.appendChild(dot);
+});
+}
+
+function getCardWidth(){
+const card=cards[0];
+if(!card)return 0;
+const style=window.getComputedStyle(track);
+const gap=parseFloat(style.gap)||20;
+return card.getBoundingClientRect().width+gap;
+}
+
+function scrollToCard(index){
+const step=getCardWidth();
+track.scrollTo({left:index*step,behavior:'smooth'});
+}
+
+function updateControlsState(){
+const maxScroll=track.scrollWidth-track.clientWidth;
+const isOverflowing=maxScroll>10;
+
+if(nav)nav.style.display=isOverflowing?'':'none';
+if(dotsContainer)dotsContainer.style.display=isOverflowing?'':'none';
+
+if(!isOverflowing)return;
+
+const scrollLeft=track.scrollLeft;
+const step=getCardWidth()||1;
+const activeIndex=Math.min(cards.length-1,Math.max(0,Math.round(scrollLeft/step)));
+
+if(prevBtn)prevBtn.disabled=scrollLeft<=4;
+if(nextBtn)nextBtn.disabled=scrollLeft>=maxScroll-4;
+
+if(dotsContainer){
+const dots=dotsContainer.querySelectorAll('.testimonials-dot');
+dots.forEach((dot,idx)=>{
+const isActive=idx===activeIndex;
+dot.classList.toggle('active',isActive);
+dot.setAttribute('aria-selected',String(isActive));
+});
+}
+}
+
+setupDots();
+updateControlsState();
+
+if(prevBtn){
+prevBtn.addEventListener('click',()=>{
+const step=getCardWidth();
+track.scrollBy({left:-step,behavior:'smooth'});
+});
+}
+
+if(nextBtn){
+nextBtn.addEventListener('click',()=>{
+const step=getCardWidth();
+track.scrollBy({left:step,behavior:'smooth'});
+});
+}
+
+let scrollTimeout;
+track.addEventListener('scroll',()=>{
+if(scrollTimeout)cancelAnimationFrame(scrollTimeout);
+scrollTimeout=requestAnimationFrame(updateControlsState);
+},{passive:true});
+
+window.addEventListener('resize',()=>{
+updateControlsState();
+},{passive:true});
+
+// Video Modal Controller
+const modal=document.querySelector('#video-modal');
+if(!modal)return;
+
+const player=modal.querySelector('.video-modal-player');
+const placeholderMsg=modal.querySelector('.video-modal-placeholder-msg');
+const nameEl=modal.querySelector('.video-modal-name');
+const roleEl=modal.querySelector('.video-modal-role');
+const igLink=modal.querySelector('.video-modal-ig-link');
+const closeBtn=modal.querySelector('.video-modal-close');
+let lastFocusedTrigger=null;
+
+function openModal(trigger){
+lastFocusedTrigger=trigger;
+const isPlaceholder=trigger.getAttribute('data-placeholder')==='true';
+const name=trigger.getAttribute('data-student-name')||'';
+const role=trigger.getAttribute('data-student-role')||'';
+const igUrl=trigger.getAttribute('data-instagram-url')||'';
+const videoSrc=trigger.getAttribute('data-video-src')||'';
+const poster=trigger.getAttribute('data-video-poster')||'';
+
+if(nameEl)nameEl.textContent=name;
+if(roleEl)roleEl.textContent=role;
+
+if(igLink){
+if(igUrl){
+igLink.href=igUrl;
+igLink.style.display='inline-flex';
+}else{
+igLink.href='https://www.instagram.com/everylifeoficial/';
+igLink.style.display='inline-flex';
+}
+}
+
+if(isPlaceholder||!videoSrc){
+if(player){
+player.pause();
+player.removeAttribute('src');
+player.style.display='none';
+}
+if(placeholderMsg)placeholderMsg.style.display='flex';
+}else{
+if(placeholderMsg)placeholderMsg.style.display='none';
+if(player){
+player.style.display='block';
+player.poster=poster;
+player.src=videoSrc;
+player.load();
+player.play().catch(()=>{});
+}
+}
+
+modal.classList.add('active');
+modal.setAttribute('aria-hidden','false');
+document.body.style.overflow='hidden';
+closeBtn.focus();
+}
+
+function closeModal(){
+modal.classList.remove('active');
+modal.setAttribute('aria-hidden','true');
+document.body.style.overflow='';
+if(player){
+player.pause();
+player.removeAttribute('src');
+player.load();
+}
+if(lastFocusedTrigger){
+lastFocusedTrigger.focus();
+}
+}
+
+section.querySelectorAll('.testimonial-trigger').forEach(trigger=>{
+trigger.addEventListener('click',()=>{openModal(trigger);});
+});
+
+modal.querySelectorAll('[data-close-modal]').forEach(el=>{
+el.addEventListener('click',closeModal);
+});
+
+document.addEventListener('keydown',e=>{
+if(modal.classList.contains('active')){
+if(e.key==='Escape'){
+e.preventDefault();
+closeModal();
+}else if(e.key==='Tab'){
+const focusables=modal.querySelectorAll('button:not([disabled]),[href],video');
+if(!focusables.length)return;
+const first=focusables[0];
+const last=focusables[focusables.length-1];
+if(e.shiftKey&&document.activeElement===first){
+e.preventDefault();
+last.focus();
+}else if(!e.shiftKey&&document.activeElement===last){
+e.preventDefault();
+first.focus();
+}
+}
+}
+});
+})();
+
 
 
