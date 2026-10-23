@@ -230,7 +230,7 @@ updateControlsState();
 const modal=document.querySelector('#video-modal');
 if(!modal)return;
 
-const player=modal.querySelector('.video-modal-player');
+const playerWrap=modal.querySelector('.video-modal-player-wrap');
 const placeholderMsg=modal.querySelector('.video-modal-placeholder-msg');
 const nameEl=modal.querySelector('.video-modal-name');
 const roleEl=modal.querySelector('.video-modal-role');
@@ -260,19 +260,24 @@ igLink.style.display='inline-flex';
 }
 }
 
-if(isPlaceholder||!videoSrc){
-if(player){
-player.pause();
-player.removeAttribute('src');
-player.style.display='none';
+const existingPlayer=playerWrap?playerWrap.querySelector('.video-modal-player'):null;
+if(existingPlayer){
+existingPlayer.pause();
+existingPlayer.remove();
 }
+
+if(isPlaceholder||!videoSrc){
 if(placeholderMsg)placeholderMsg.style.display='flex';
 }else{
 if(placeholderMsg)placeholderMsg.style.display='none';
-if(player){
-player.style.display='block';
+if(playerWrap){
+const player=document.createElement('video');
+player.className='video-modal-player';
+player.playsInline=true;
+player.controls=true;
 player.poster=poster;
 player.src=videoSrc;
+playerWrap.prepend(player);
 player.load();
 const playPromise=player.play();
 if(playPromise!==undefined){
@@ -293,10 +298,13 @@ function closeModal(){
 modal.classList.remove('active');
 modal.setAttribute('aria-hidden','true');
 document.body.style.overflow='';
+if(playerWrap){
+const player=playerWrap.querySelector('.video-modal-player');
 if(player){
 player.pause();
 player.removeAttribute('src');
-player.load();
+player.remove();
+}
 }
 if(lastFocusedTrigger){
 lastFocusedTrigger.focus();
