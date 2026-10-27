@@ -172,8 +172,8 @@ right:10px;
 .method-copy h2{font-size:clamp(28px,7.2vw,40px)}
 .method-copy>p{font-size:17px;max-width:none;margin-top:18px}
 .method-copy .text-link{font-size:16px;margin-top:18px}
-.method-portrait{width:min(100%,430px);height:auto;aspect-ratio:auto;justify-self:center;inset:auto;transform:none}
-.method-portrait img{position:static;width:100%;height:auto}
+.method-portrait{width:min(100%,420px);max-width:100%;height:auto;aspect-ratio:auto;justify-self:center;align-self:center;inset:auto;margin:12px auto 0;transform:none}
+.method-portrait img{position:static;width:100%;max-width:100%;height:auto;display:block;margin:0 auto;object-fit:contain;object-position:center bottom}
 .method-wave{width:90%;right:0;top:50%;height:100px;opacity:.2}
 .method-timeline{padding-top:24px;padding-bottom:0}
 .method-timeline h3{font-size:25px}
